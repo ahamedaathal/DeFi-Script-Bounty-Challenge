@@ -17,6 +17,10 @@ This script demonstrates advanced DeFi concepts, including:
 - Leveraging positions by borrowing against supplied collateral
 - Interacting with multiple DeFi protocols in a single flow
 
+## Diagram Illustration
+
+![diagram-aave-borrow](https://github.com/user-attachments/assets/9a919402-d27c-4412-8bbe-4a9b8055205c)
+
 ## Code Explanation
 
 ### Key Functions:
@@ -97,8 +101,6 @@ Key aspects of the code:
 - Gas limits are specified for Aave interactions to ensure transaction success.
 
 This script demonstrates the power of DeFi composability by combining multiple protocols to create a more complex financial operation.
-
-## Diagram Illustration
 
 ## How to Run
 
