@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const WETH_ADDRESS = "0x150fd3030cC62BB3481e1b6dAa75b96b1E2ce23B";
+const WETH_ADDRESS = "0x7a9b463580B098A9a2984B70CEA7949A1ccC366d";
 const USDC_ADDRESS = "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8";
 const UNISWAP_ROUTER_ADDRESS = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
 const AAVE_POOL_ADDRESS = "0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951";
@@ -55,7 +55,6 @@ async function swapEthForUsdc(uniswapRouter, signer, ethAmount) {
   );
 
   const UsdcDeposit = ethers.parseUnits("1", 6);
-  console.log(`Received ${ethers.formatUnits(UsdcDeposit, 6)} USDC from swap`);
   return UsdcDeposit;
 }
 
@@ -73,10 +72,12 @@ async function supplyCollateralToAave(aaveLendingPool, signer, UsdcDeposit) {
     UsdcDeposit,
     signer.address,
     0,
-    { gasLimit: 500000 }
+    { gasLimit: 300000 }
   );
-  await depositTx.wait();
-  console.log("Supply successful");
+  const receipt = await depositTx.wait();
+  console.log(
+    `Supply Successful: https://sepolia.etherscan.io/tx/${receipt.hash}`
+  );
 }
 
 async function borrowFromAave(aaveLendingPool, signer, UsdcDeposit) {
@@ -93,10 +94,12 @@ async function borrowFromAave(aaveLendingPool, signer, UsdcDeposit) {
     2,
     0,
     signer.address,
-    { gasLimit: 500000 }
+    { gasLimit: 300000 }
   );
-  await borrowTx.wait();
-  console.log("Borrow successful");
+  const receipt = await borrowTx.wait();
+  console.log(
+    `Borrow Successful: https://sepolia.etherscan.io/tx/${receipt.hash}`
+  );
 }
 
 async function main(ethAmount) {
